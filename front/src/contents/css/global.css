@@ -13,3 +13,7 @@ html, body {
 ul, ol {
     list-style: none;
 }
+
+:root {
+    --point-color: #425de2;
+}

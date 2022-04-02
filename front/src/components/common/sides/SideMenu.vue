@@ -21,6 +21,12 @@
                 </router-link>
             </li>
             <li>
+                <router-link to="/project">
+                    <i class="material-icons-outlined">work_outline</i>
+                    <p>Project</p>
+                </router-link>
+            </li>
+            <li>
                 <router-link to="/profile">
                     <i class="material-icons-outlined">person</i>
                     <p>Profile</p>
@@ -59,7 +65,7 @@ export default {
             transition: {
                 duration: 0.3s;
             }
-            &:hover {
+            &:hover, &.router-link-active {
                 opacity: 1.0;
             }
             i {

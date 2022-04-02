@@ -1,17 +1,36 @@
 <template>
-  <div id="wrap">
+  <div v-if="isLogin" id="wrap">
     <SideFrame />
     <main>
       <router-view></router-view>
     </main>
   </div>
+  <div v-else id="wrap">
+    <router-view></router-view>
+  </div>
+    
 </template>
 
 <script>
 import SideFrame from './components/common/SideFrame.vue';
 
 export default {
+  data: function() {
+    return {
+      
+    }
+  },
   components: { SideFrame },
+  computed: {
+    isLogin: function() {
+      const is = this.$store.state.UserInfo;
+      console.log(is);
+      return is.isLogin;
+    }
+  },
+  created: function() {
+    if(!this.isLogin) this.$router.replace('/login');
+  }
 }
 </script>
 
