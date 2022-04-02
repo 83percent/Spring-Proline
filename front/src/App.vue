@@ -1,26 +1,33 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="wrap">
+    <SideFrame />
+    <main>
+      <router-view></router-view>
+    </main>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import SideFrame from './components/common/SideFrame.vue';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  components: { SideFrame },
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import "contents/fonts/AppleSDGothicNeo.css";
+@import "contents/fonts/Montserrat.css";
+@import "contents/css/global.css";
+
+#wrap {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
+#wrap > main {
+  flex-grow: 1;
+}
+
 </style>

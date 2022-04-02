@@ -1,0 +1,15 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#app {
+    font-family: AppleSDGothicNeo, Montserrat, Avenir, Helvetica, Arial, sans-serif;
+}
+html, body {
+    width: 100%;
+    min-height: 100vh;
+}
+ul, ol {
+    list-style: none;
+}
