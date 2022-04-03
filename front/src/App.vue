@@ -47,6 +47,9 @@ export default {
 }
 #wrap > main {
   flex-grow: 1;
+  max-width: 84%;
+  width: 84%;
+  min-width: 84%;
 }
 
 </style>

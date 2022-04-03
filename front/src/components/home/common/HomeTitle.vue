@@ -1,6 +1,8 @@
 <template>
     <div>
-      <slot><h1>Project Tasks</h1></slot>
+      <h1>
+        <slot>Empty Title</slot>
+      </h1>
       <router-link to="/home/task">
         <i class="material-icons-outlined">add</i>
         <p>Add a view</p>
@@ -18,7 +20,8 @@ export default {
 div {
     display: flex;
     align-items: center;
-    h1 {
+    margin-bottom: 0.6rem;
+    & > h1 {
       font-size: 1.6rem;
       font-weight: 500;
     }

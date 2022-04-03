@@ -28,7 +28,7 @@ export default {
 
 <style lang="scss" scoped>
     #side-wrap {
-        width: 20rem;
+        min-width: 16%;
         height: 100%;
         // Frame
         > div {
