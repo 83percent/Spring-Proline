@@ -33,22 +33,19 @@
                 </ul>
                 <div class="cal">
                     <!-- Calendar Background -->
-                    <ol>
+                    <ol ref="calendar">
                         <li v-for="day in lastDay" v-bind:key="day">
                             <p>{{day}}</p>
                             <div></div>
                         </li>
                     </ol>
                     <!-- Task -->
-                    <div v-for="(project, index) in projects"
+                    <timeline-element
+                        v-for="(project, index) in projects"
                         v-bind:key="index"
-                        v-bind:style="{
-                            width: (project.size * 8)+'rem',
-                            top: (2.3 + index*6) +'rem',
-                            left: project.start_point * 8 + 'rem'
-                        }">
-                        <div></div>
-                    </div>
+                        v-bind:project="project"
+                        v-bind:index="index">
+                    </timeline-element>
                 </div>
             </div>
         </article>
@@ -58,7 +55,7 @@
 
 <script>
 import HomeTitle from '../common/HomeTitle.vue';
-
+import TimelineElement from './TimelineElement.vue';
 
 const [year, month, lastDay, firstDate] = (() => { // 연, 월, 마지막일, 첫 일의 요일
     let date    = new Date(),
@@ -71,7 +68,7 @@ const [year, month, lastDay, firstDate] = (() => { // 연, 월, 마지막일, �
 })();
 
 export default {
-    components: { HomeTitle },
+    components: { HomeTitle, TimelineElement },
     props: {
         projects: {type:Array, required: true}
     },
@@ -84,17 +81,12 @@ export default {
     computed : {
         projectGraphs : function() {
             return Object.values(this.$props.projects).reduce((acc, element) => {
-                console.log(element);
                 const start_date = new Date(element.start_date);
                 const end_date = new Date(element.end_date);
-                
                 const start_point = (() => {
-                    
                     const yearGap = start_date.getFullYear() - parseInt(this.year);
                     if(yearGap === 0) {
-                        
                         const monthGap = (start_date.getMonth()+1) - parseInt(this.month);
-                        
                         if(monthGap === 0) {
                             return start_date.getDate()-1;
                         } else if(monthGap < 0) {
@@ -107,10 +99,8 @@ export default {
                 })();
                 const end_point = (() => {
                     const yearGap = end_date.getFullYear() - parseInt(this.year);
-                    console.log("YEAR : ",end_date.getFullYear(), this.year, yearGap)
                     if(yearGap === 0) {
                         const monthGap = (end_date.getMonth()+1) - parseInt(this.month);
-                        console.log("MONTH : ", end_date.getMonth()+1, this.month, monthGap)
                         if(monthGap === 0) {
                             return end_date.getDate();
                         } else if(monthGap > 0) {
@@ -121,7 +111,6 @@ export default {
                     }
                     return -1;
                 })();
-                console.log(start_point, end_point);
                 if(start_point === -1 || end_point === -1) {
                     element.size = -1;
                 } else {
@@ -133,13 +122,20 @@ export default {
                 return acc;
             }, []);
         }
+    }, // computed
+    mounted: function() {
+        const calendar = this.$refs.calendar;
+        if(calendar) {
+            const frame = calendar.children[new Date().getDate()-1];
+            frame.classList.add("today");
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-$cal-width : 8rem;
-$cal-height : 6rem;
+$cal-width : 7rem;
+$cal-height : 5rem;
 section {
     margin-bottom: 2rem;
     > article {
@@ -191,9 +187,12 @@ section {
                     border-bottom: 1px solid #e3e8ee;
                 }
                 > li.project-element {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     height: $cal-height;
                     text-align: center;
-                    line-height: $cal-height;
+                    
                 }
                 > li {
                     > p {
@@ -247,32 +246,13 @@ section {
                         &:last-of-type {
                             border: none;
                         }
-                    }
-                }
-
-                > div {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    position: absolute;
-                    height: $cal-height;
-                    > div {
-                        width: 100%;
-                        height: 4.5rem;
-                        border: 1px solid #e3e8ee;
-                        border-radius: 0.5rem;
-                        background-color: #fff;
-                        transition-duration: 0.2s;
-                        cursor: pointer;
-
-                        &:hover {
-                            box-shadow: 2px 2px 7px #00000020;
+                        &.today {
+                            background-color: #dde4ee;
                         }
                     }
                 }
             }
         }
     }
-    
 }
 </style>

@@ -16,4 +16,11 @@ ul, ol {
 
 :root {
     --point-color: #425de2;
+    
+    --status-01-font: #66c159;
+    --status-01-back: #d9f2d5;
+    --status-02-font: #eba561;
+    --status-02-back: #fceed3;
+    --status-03-font: #e85f5e;
+    --status-03-back: #f4cdcf;
 }

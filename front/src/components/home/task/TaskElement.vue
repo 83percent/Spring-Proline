@@ -26,7 +26,7 @@
         </span>
         <span>
             <p>Project status</p>
-            <h4>{{project.status}}</h4>
+            <task-status v-bind:status="project.status"></task-status>
         </span>
         <div>
             <button @click="menuToggle">
@@ -51,8 +51,10 @@
 </template>
 
 <script>
+import TaskStatus from './TaskStatus.vue';
 
 export default {
+    components: { TaskStatus },
     props: ["project"],
     methods : {
         menuToggle: function() {
@@ -63,6 +65,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$s01 : #66c159;
+
 li.project-element {
     display: flex;
     align-items: center;
@@ -76,7 +80,7 @@ li.project-element {
         box-shadow: 2px 2px 7px #00000020;
     }
     > span {
-        flex-grow: 1;
+        width: 100%;
 
         > p {
             font-size: 0.75rem;
